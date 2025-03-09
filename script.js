@@ -80,7 +80,7 @@ function checkMatch() {
     matchSound.play(); // Play match sound
     if (matchedPairs === images.length) {
       winSound.play(); // Play win sound
-      alert("Congratulations! You've won!");
+      alert("Congratulations! You've won!\nTotal clicks: " + count);
     }
   } else {
     card1.querySelector("img").style.display = "none";
