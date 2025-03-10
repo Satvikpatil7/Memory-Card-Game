@@ -9,14 +9,12 @@ const matchSound = new Audio("Sound/matchSound.mp3");
 // Fetch images
 const fetchImages = async () => {
   try {
-    images = await Promise.all(
-      Array.from({ length: 8 }, async (_, i) => {
-        const response = await fetch(
-          `https://picsum.photos/200/300?random=${i}`
-        );
-        return response.url; // Get the final image URL
-      })
-    );
+    images = [];
+
+    for (let i = 0; i < 8; i++) {
+      const response = await fetch(`https://picsum.photos/200/300?random=${i}`);
+      images.push(response.url); // Store the image URL in the array
+    }
 
     console.log(images);
     setupGames();
