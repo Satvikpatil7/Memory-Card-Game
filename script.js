@@ -8,20 +8,22 @@ const winSound = new Audio("Sound/winSound.mp3");
 const matchSound = new Audio("Sound/matchSound.mp3");
 // Fetch images
 const fetchImages = async () => {
-  try {
-    images = [];
-
-    for (let i = 0; i < 8; i++) {
-      const response = await fetch(`https://picsum.photos/200/300?random=${i}`);
-      images.push(response.url); // Store the image URL in the array
-    }
-
-    console.log(images);
-    setupGames();
-  } catch (error) {
-    console.error("Error fetching images:", error);
-  }
-};
+   try {
+     images = await Promise.all(
+       Array.from({ length: 8 }, async (_, i) => {
+         const response = await fetch(
+           `https://picsum.photos/200/300?random=${i}`
+         );
+         return response.url; // Get the final image URL
+       })
+     );
+ 
+     console.log(images);
+     setupGames();
+   } catch (error) {
+     console.error("Error fetching images:", error);
+   }
+ };
 
 function setupGames() {
   let shuffledImages = [...images, ...images]; // Duplicate images for pairs
